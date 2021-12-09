@@ -2,6 +2,8 @@
 
 # Bhbotlist.xyz
 **Discord Server:** [Join here](https://bhbotlist.xyz/dc)<br>
+**NPM:** [npmjs.com/package/bhbotlist.js](https://www.npmjs.com/bhbotlist.js)<br>
+**PIP:** [pypi.org/project/bhbotlist](https://pypi.org/project/bhbotlist/)<br>
 <br>
 # vCodes.xyz
 **Discord Server:** [https://discord.gg/z7dBzygse4](https://discord.gg/z7dBzygse4)<br>
