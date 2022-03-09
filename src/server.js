@@ -280,7 +280,7 @@ app.post("/admin/news", checkAdmin, checkAuth, async (req, res) => {
 
   const webhook = require("webhook-discord");
 
-  const Hook = new webhook.Webhook("https://discord.com/api/webhooks/874143082591961118/ghmmTeYoggMIkFsDnar4GUEWWmBE0m0nyymOUinx1f6ebXsGLm4ReGkWQHkzzD_Mr_Jg");
+  const Hook = new webhook.Webhook("https://discord.com/api/webhooks/947387344342900746/RQVSXGp2BqyOas_XKZTNmJpq73BkPCaQYxUsG9ITzrIRX__gTeKeWxhz4LnuzWyrMY4d");
   const msg = new webhook.MessageBuilder()
     .setName('News')
     .setAvatar(req.body.icon)
@@ -421,7 +421,7 @@ app.get("/news", (req, res) => {
     app.use("/", require('./routers/botlist/vote.js'))
     app.use("/", require('./routers/botlist/bot/view.js'))
     app.use("/", require('./routers/botlist/bot/edit.js'))
-    app.use("/", require('./routers/botlist/bot/transfer-owner.js'))
+    app.use("/", require('./routers/botlist/bot/transfer.js'))
     app.use("/", require('./routers/botlist/bot/embed.js'))
     app.use("/", require('./routers/botlist/bot/analytics.js'))
     app.use("/", require('./routers/botlist/apps/cerificate-app.js'))

@@ -35,7 +35,7 @@ app.post("/certification/apply", global.checkAuth, async (req, res) => {
         future: rBody['future']
     }).save();
     res.redirect("/bots?success=true&message=Certificate application applied.&botID=" + rBody['bot'])
-    client.channels.cache.get(channels.botlog).send(`User **${req.user.username}** requested a certificate for his/her bot named **${botdata.username} <@&842764846889959454>**.`)
+    client.channels.cache.get(channels.botlog).send(`User **${req.user.username}** requested a certificate for his/her bot named **${botdata.username} <@&913070918404833300>**.`)
 });
 
 module.exports = app;

@@ -3,30 +3,32 @@ const botsdata = require("../../../database/models/botlist/bots.js");
 const client = global.Client;
 const channels = global.config.server.channels;
 
-console.log("[bhbotlist.xyz]: Botlist/transfer view router loaded.");
+console.log("[disbots.xyz/servers]: Transfer owner router loaded.");
+
 app.get("/bot/:botID/transfer", global.checkAuth, async (req, res) => {
   let botdata = await botsdata.findOne({
         botID: req.params.botID
     });
-    if (!botdata) return res.redirect("/error?code=404&message=You entered an invalid bot id.")
+    if (!botdata) return res.redirect("/error?code=404&message=You entered an invalid user id.")
     if (req.user.id == botdata.ownerID || botdata.coowners.includes(req.user.id)) {
-	    res.render("botlist/bot/transfer.ejs", {
-	        bot: global.Client,
-	        path: req.path,
-	        config: global.config,
-	        user: req.isAuthenticated() ? req.user : null,
-	        req: req,
-	        roles:global.config.server.roles,
-	        channels: global.config.server.channels,
-	        botdata: botdata
-	    })
+        res.render("botlist/bot/transfer.ejs", {
+            bot: global.Client,
+            path: req.path,
+            config: global.config,
+            user: req.isAuthenticated() ? req.user : null,
+            req: req,
+            roles:global.config.server.roles,
+            channels: global.config.server.channels,
+            botdata: botdata
+        })
     } else {
-        res.redirect("/error?code=404&message=To edit this bot, you must be one of its owners.");
+        res.redirect("/error?code=404&message=To transfer this bot, you must be its owners.");
     }
 });
 
+
 app.post("/bot/:botID/transfer", global.checkAuth, async (req, res) => {
-  let rBody = req.body;
+    let rBody = req.body;
     if(!client.guilds.cache.get(config.server.id).members.cache.get(rBody['userID'])) return res.redirect("/error?code=403&message=To do this, The user must be in server.");
     client.users.fetch(req.body.userID).then(async a => {
       if(!a.bot === false)  return res.send({
@@ -45,14 +47,14 @@ app.post("/bot/:botID/transfer", global.checkAuth, async (req, res) => {
       await botsdata.findOneAndUpdate({
           botID: req.params.botID
       }, {
-          $set: {
+          set: {
               ownerID: rBody['userID'],
           }
       }, function(err, docs) { })
       return res.send({
           success: true,
           message: "Successfully Transfered Owner"
-      })
+      });
     })
 })
 

@@ -7,7 +7,7 @@ console.log("[bhbotlist.xyz]: Profile/Index router loaded.");
 
 const profiledata = require("../../database/models/profile.js");
 const banSchema = require("../../database/models/site-ban.js");
-app.get("/user/:userID/uembed", async (req, res) => {
+app.get("/api/user/:userID", async (req, res) => {
     client.users.fetch(req.params.userID).then(async a => {
         const pdata = await profiledata.findOne({
             userID: a.id

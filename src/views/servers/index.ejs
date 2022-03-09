@@ -6,12 +6,11 @@
     <br><br>
     <div class="container px-3 mb-5 mt-1">
       <div class="mb-3 mx-auto">
-       <span class="icon-section" style="margin-top: -5%;float: right;">
-        <img  draggable="false" style="z-index: -1!important;" class="section-img" title="BHBotlist.xyz"  src="../img/logo.png" width="320" alt="Discord Servers | Discord Server List">
-        </span>
+        <center>
         <h1 class="title" translate="no" style="font-weight: 800;color: #fff">BHServerlist</h1>
         <p class="content" style="opacity: 0.6; margin-top: -20px;color: #fff">Do you want to grow a your server? BHServerlist is here for you!</p>
-        
+        </center>
+            <center>
             <div>
               <div class="z">
                 <form action="/servers/search">
@@ -40,6 +39,7 @@
           	<a title="BHServerlist" href="/servers/tag/<%= tag.name %>" class="btn btn-vcodes"><i class="<%= tag.icon %>"></i>&nbsp;<%= tag.name %></a>
           <% }) %>
           	<a title="BHServerlist" href="/servers/tags" class="btn btn-vcodes"><i class="fal fa-tags"></i>&nbsp;Explore Tags</a>
+            </center>
               </div>
       </div>
     </div>

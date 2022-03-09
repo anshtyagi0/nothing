@@ -66,7 +66,7 @@ console.log("[bhbotlist.xyz]: Botlist/Add Bot router loaded.");
       }
       })
       client.users.fetch(rBody['botID']).then(a => {
-      client.channels.cache.get(channels.botlog).send(`<@${req.user.id}> added **${a.tag}** <@&842764846889959454> link - https://bhbotlist.xyz/bot/${rBody['botID']}`)
+      client.channels.cache.get(channels.botlog).send(`<@${req.user.id}> added **${a.tag}** <@&913070918404833300> link - https://bhbotlist.xyz/bot/${rBody['botID']}`)
       res.redirect(`?success=true&message=Your bot has been successfully added to the system.&botID=${rBody['botID']}`)
       })
     })

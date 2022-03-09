@@ -1,32 +1,33 @@
 
 module.exports = {
   bot: {
-    token: "bot toke here",
-    prefix: "-",
-    owners: ["836958855866089512", "671390595184459782", "566113631499059220"],
-    mongourl: "mongodb url here",
+    token: "",//your bot token for botlist
+    prefix: "",//your bot prefix for botlist
+    owners: ["",""],//owners id
+    mongourl: "",//mongodb url
     servers: {
-      token: "serverlist bot here",
-      prefix: "-"
+      token: "",//your bot token for serverlist
+      prefix: ""//your bot prefix for serverlist
     }
   },
 
   website: {
-    callback: "https://yourwebsite.com/callback",
-    secret: "client secret",
-    clientID: "842752825888342056", // Bot client id.
+    callback: "",//callback url https://domain.com/callback
+    secret: "",//your botlist bot's client secret
+    clientID: "", // botlist Bot client id.
     tags: ["Moderation", "Fun", "Minecraft", "Economy", "Guard", "NSFW", "Anime", "Invite", "Music", "Logging", "Web Dashboard", "Reddit", "Youtube", "Twitch", "Crypto", "Leveling", "Game", "Roleplay", "Utility", "India"],
     languages: [
-      { flag: 'gb', code: 'en', name: 'English' },
-      { flag: 'pt', code: 'pt', name: 'Portuguese' },
-      { flag: 'es', code: 'es', name: 'Spanish' },
-      { flag: 'fr', code: 'fr', name: 'French' },
-      { flag: 'de', code: 'de', name: 'German' },
+      { flag: 'us', code: 'af', name: 'Afrikaans' },
+      { flag: 'us', code: 'en', name: 'English' },
+      { flag: 'in', code: 'hi', name: 'हिंदी' },
+      { flag: 'pt', code: 'pt', name: 'Português' },
+      { flag: 'es', code: 'es', name: 'Español' },
+      { flag: 'fr', code: 'fr', name: 'Français' },
+      { flag: 'de', code: 'de', name: 'Deutsch' },
       { flag: 'al', code: 'al', name: 'Albanian' },
       { flag: 'ru', code: 'ru', name: 'Russian' },
       { flag: 'cn', code: 'cn', name: 'Chinese' },
       { flag: 'tr', code: 'tr', name: 'Turkish' },
-      { flag: 'in', code: 'in', name: 'Indian' }
     ],
     servers: {
       tags: [
@@ -63,8 +64,8 @@ module.exports = {
           name: 'Server List'
         },
         {
-          icon: 'fal fa-moon-stars',
-          name: 'Turkish'
+          icon: 'fal fa-flag',
+          name: 'India'
         },
         {
           icon: 'fab fa-discord',
@@ -131,46 +132,47 @@ module.exports = {
   },
 
   server: {
-    id: "805130400623362048",
-    invite: "https://discord.gg/7SvnbjGWcX",
+    id: "",//your server id
+    invite: "",//your server invite link
     roles: {
-      administrator: "844906017061208064",
-      moderator: "842764846889959454",
+      administrator: "",// website admin role id
+      moderator: "", // bot reveiwer role id
       profile: {
-        sitecreator: "820942294152642571",
-        booster: "806516373701787689",
-        sponsor: "854618453770895360",
-        supporter: "854623285739913247",
-        partnerRole: "844921888492486686"
+        sitecreator: "", //site owner's id
+        booster: "", // booster role id
+        sponsor: "", //sponser role id
+        supporter: "", //supporter role id
+        partnerRole: "" //partner role id
       },
       codeshare: {
-        javascript: "854618913932181516",
-        html: "854619356142239747",
-        substructure: "854619547957329930",
-        bdfd: "854619668043137064", // Bot Designer For Discord
+        javascript: "", //javascript role id
+        html: "", //html role id
+        substructure: "", //substructure role id
+        bdfd: "", // Bot Designer For Discord
         fiveInvite: "",
         tenInvite: "",
         fifteenInvite: "",
         twentyInvite: ""
       },
       botlist: {
-        developer: "854622388465303553",
-        certified_developer: "854622657990885396",
-        bot: "845238820751802398",
-        certified_bot: "854623089496948736",
-        bug: "887892978700521523",
-        premium_developer: "889024613252739072",
-        premium_bot: "873689030838091826",
-        staff: "887893412764860416"
+        developer: "", //developer role id
+        certified_developer: "", //certified developer role id
+        bot: "", //bot role id
+        certified_bot: "", // certified bot role id
+        bug: "", //bug hunter role id
+        premium_developer: "", // premium developer role id
+        premium_bot: "", // premium bot role id
+        staff: "" // staff role id
       }
     },
     channels: {
-      codelog: "845239798875684904",
-      login: "845238080113606691",
-      webstatus: "843528756882047027",
-      uptimelog: "845238538052304906",
-      botlog: "845239284881293313",
-      votes: "845239378526601237"
+      codelog: "",//codelog channel id
+      login: "",//login log channel id
+      webstatus: "",// website status channel id
+      uptimelog: "", //uptime link logs channel id
+      botlog: "", //bot add, approve, decline, edit log channel id
+      downtimelog: "",//bots downtime log channel id
+      votes: ""//votes log channel id
     }
   }
 

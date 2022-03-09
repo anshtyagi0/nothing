@@ -46,7 +46,7 @@ serverClient.on('message', async message => {
 
 serverClient.on('ready',async () => {
     console.log("[bhbotlist.xyz/servers]: Bot successfully connected as "+serverClient.user.tag+".");
-    serverClient.user.setPresence({ activity: { type: 'WATCHING', name: '-bump & -vote | bhbotlist.xyz/servers' }, status: "dnd" });
+    serverClient.user.setPresence({ activity: { type: 'WATCHING', name: 'b!bump & b!vote | bhbotlist.xyz/servers' }, status: "dnd" });
 });
 
 serverClient.makeid = length => {

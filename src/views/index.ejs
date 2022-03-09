@@ -1,4 +1,8 @@
+<head>
 <%- include('parts/head', {bot, user, path}) %>
+
+
+</head>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1831947467874577"
      crossorigin="anonymous"></script>
 <%- include('parts/section') %>
@@ -14,9 +18,8 @@
 </script>
 </center>
 <div class="column">
-<center>
     <p class="has-text-white title is-large" style="text-shadow: 2px 2px 5px black;"><i class="fad fa-diamond has-text-warning"></i>&nbsp;Premium Bots</p>
-</center>
+
   </div>
   <div class="columns is-multiline is-desktop is-variable is-7 pt-5">
     <%
@@ -37,7 +40,7 @@
       <div class="col-md-6 col-lg-4 pb-3">
         <div data-aos="fade-left">
         <div class="card vcodes-card-custom bg-vcodes border-white border-0">
-          <div class="vcodes-card-custom-img" style="background-image: url(<%= a.backURL || `https://i.hizliresim.com/2sdunq.png` %>);"></div>
+          <div class="vcodes-card-custom-img" style="background-image: url(<%= a.backURL || `https://imgur.com/a/XNSLRP4` %>);"></div>
           <div class="vcodes-card-custom-avatar">
             <img class="img-fluid" onerror="imgError(this);" src="<%=a.avatar%>" alt="Avatar" />
           </div>
@@ -59,8 +62,10 @@
             <% } %>
             </h4>
             <p translate="no" class="card-text vcodesbotDesc"><%= a.shortDesc %></p>
+            
           </div>
-          <p style="font-size:80%; color:rgb(77, 78, 80);"> &nbsp;&nbsp;<%= a.tags %></p>
+          <p style="font-size:80%; color:#fff;"> &nbsp;&nbsp;<%= a.tags %></p>
+          
           <div class="card-footer">
             <a title="<%=a.username%>" href="/bot/<%=a.botID%>" class="btn  btn2-bhbl"><i class="fad fa-eye"></i>&nbsp;View</a>
             <a title="<%=a.username%> Invite" href="/bot/<%=a.botID%>/invite" class="btn  btn2-bhbl"><i class="fad fa-user-plus"></i>&nbsp;Invite</a>

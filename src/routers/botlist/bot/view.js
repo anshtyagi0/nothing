@@ -1,5 +1,7 @@
 const app = require('express').Router();
 const botsdata = require("../../../database/models/botlist/bots.js");
+const db = require("quick.db");
+
 const client = global.Client;
 
 console.log("[bhbotlist.xyz]: Botlist/Bot view router loaded.");

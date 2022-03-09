@@ -117,6 +117,10 @@
                 <div class="box-2-p"><i class="mt-1 fal fa-vote-yea"></i></div>
                 <p class="box-2">Votes:&nbsp;<%= botdata.votes || "0" %> </p>
               </div>
+              <div class="is-flex mt-1">
+                <div class="box-2-p"><i class="mt-1 fad fa-signal"></i></div>
+                <p class="box-2">Uptime Rate:&nbsp;<%=botdata.uptimerate|| "N/A"%>% </p>
+              </div>
               <% if(botdata.serverCount) {%>
               <div class="is-flex mt-1">
                 <div class="box-2-p"><i class="mt-1 fal fa-server"></i></div>
@@ -194,6 +198,10 @@
                   <div style="background: rgb(33, 167, 111);" class="box-2-p"><i class="fal fa-globe is-size-6 mt-1"></i></div>
                   <p style="background: rgb(8, 187, 112);color:#fff"class="box-2">Website</p>
                 </a>
+                <a href="/bot/<%= botdata.botID %>/embed" class="is-flex mt-1">
+                    <div style="background: rgb(23,132,110);" class="box-2-p"><i class="mt-1 fal fa-pencil"></i></div>
+                    <p class="box-2">Widget</p>
+                  </a>
                 <% } %>
                 <% if(botdata.github) {%>
                 <a href="<%= botdata.github %>" class="is-flex mt-1">

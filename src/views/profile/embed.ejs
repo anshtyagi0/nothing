@@ -1,18 +1,17 @@
-
-<%- include('../parts/links') %>
-<title><%= member.username %> | Discord Bots</title>
+<html style="height: 100%;">
 <head>
+<meta name="viewport" content="width=device-width, minimum-scale=0.1">
+<%- include('../parts/links') %>
+<head>
+    <title><%= member.username %></title>
     <link rel="icon" href="https://cdn.discordapp.com/avatars/<%=member.id%>/<%=member.avatar%>.png" type="image/x-icon" />
     <meta property="og:title" content="<%= member.username %>">
     <meta property="og:description" content="<%= botdata.shortDesc %>">
     <meta property="og:image" content="https://cdn.discordapp.com/avatars/<%=member.id%>/<%=member.avatar%>.png">
 </head>
 
-
-    
-
-    <style>
-        .separator {
+<style>
+.separator {
   display: flex;
   align-items: center;
   text-align: center;
@@ -32,7 +31,7 @@
   margin-left: .55em;
 }
 
-  </style>
+</style>
 
     <!-- Page content -->
     <div style = "position:relative;left:3px;top:1px;">
@@ -62,7 +61,7 @@
                 
                 
                 
-            -                 <a  style="background:"  class="btn btn-vcodes mr-4"><i class="mt-1 fad fa-circle status-<%= bot.users.cache.get(member.id).presence.status %>"></i>Status</a>
+            <a  style="background:"  class="btn btn-vcodes mr-4"><i class="mt-1 fad fa-circle status-<%= bot.users.cache.get(member.id).presence.status %>"></i>Status</a>
               </div>
               </div>
             </div>

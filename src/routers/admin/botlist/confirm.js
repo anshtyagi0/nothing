@@ -30,10 +30,10 @@ app.get("/admin/confirm/:botID", global.checkAuth, async (req, res) => {
     });
     let guild = client.guilds.cache.get(config.server.id)
     guild.members.cache.get(botdata.botID).roles.add(roles.botlist.bot);
-    guild.members.cache.get(botdata.ownerID).roles.add(roles.botlist.developer);
-    if (botdata.coowners) {
-        botdata.coowners.map(a => {
-            guild.members.cache.get(a).roles.add(roles.botlist.developer);
+    guild.members.cache.get(botdata.ownerID).roles.add(global.config.server.roles.botlist.developer);
+         if (botdata.coowners) {
+  botdata.coowners.map(a => {
+          guild.members.cache.get(a).roles.add(roles.botlist.developer);
         })
     }
     return res.redirect(`/admin/unapproved?success=true&message=Bot approved.`)

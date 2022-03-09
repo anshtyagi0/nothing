@@ -1,329 +1,62 @@
 const app = require('express').Router();
 const botsdata = require("../../../database/models/botlist/bots.js");
+const path = require("path");
 const client = global.Client;
+const { Canvas, resolveImage } = require('canvas-constructor/cairo');
+const { registerFont } = require("canvas");
 
-console.log("[bhbotlist.xyz]: Botlist/Bot view router loaded.");
+
+console.log("[bhbotlist.xyz]: Botlist/Botembed view router loaded.");
 app.get("/bot/:botID/embed", async (req, res, next) => {
-    let botdata = await botsdata.findOne({
+    let bot = await botsdata.findOne({
         botID: req.params.botID
     });
-    if (!botdata) return res.redirect("/error?code=404&message=You entered an invalid bot id.");
-    if (botdata.status != "Approved") {
-        if(!req.user) return res.redirect('/');
-        if (req.user.id == botdata.ownerID || botdata.coowners.includes(req.user.id)) {
-            let coowner = new Array()
-            botdata.coowners.map(a => {
-                client.users.fetch(a).then(b => coowner.push(b))
-            })
-            client.users.fetch(botdata.ownerID).then(aowner => {
-                client.users.fetch(req.params.botID).then(abot => {
-                    res.render("botlist/bot/embed.ejs", {
-                        bot: global.Client,
-                        path: req.path,
-                        config: global.config,
-                        user: req.isAuthenticated() ? req.user : null,
-                        req: req,
-                        roles:global.config.server.roles,
-                        channels: global.config.server.channels,
-                        aowner: aowner,
-                        coowner: coowner,
-                        abot: abot,
-                        botdata: botdata
-                    })
-                });
-            });
-        } else {
-            res.redirect("/error?code=404&message=To edit this bot, you must be one of its owners.");
-        }
-    } else {
-        let coowner = new Array()
-        botdata.coowners.map(a => {
-            client.users.fetch(a).then(b => coowner.push(b))
-        })
+    if(!bot) return res.redirect("/error?code=404&message=You entered an invalid bot id.");
+    try {
+      let owner = client.users.cache.get(bot.ownerID);
+      let geting = client.users.cache.get(req.params.id);
+      var forav = bot.avatar || 'https://bhbotlist.xyz/img/undefined_avatar.png';
+      var forav = forav.replace(".webp", ".png")
+      let avatar = await resolveImage(forav);
+      var str = bot.shortDesc
+      var shortDesc = str.substring(0, 53);
+      registerFont('src/fonts/font.ttf', { family: 'vCodes' })
 
-        let referresURL = String(req.headers.referer).replace("undefined", "Unkown").split('.').join(',');
-        await botsdata.updateOne({
-            botID: req.params.botID
-        }, {
-            $inc: {
-                analytics_visitors: 1
-            }
-        })
+      let img = new Canvas(500, 250)
+        .setColor("#3A3B3C")
+        .printRectangle(0, 0, 500, 250)
+        .setColor("#DCE2F9")
+        .setTextFont('bold 35px sans')
+        .printText(bot.username, 120, 75)
+        .printRoundedImage(avatar, 25, 25, 70, 70, 100)
+        .setTextAlign("left")
+        .setTextFont('bold 16px Verdana')
+      img.printText(`${bot.serverCount || "N/A"} Servers  ${bot.votes} Votes`, 30, 125);
+      img
+        .printText(`Prefix: ${bot.prefix}`, 30, 145)
+        .setTextFont('normal 16px Verdana')
+        .printWrappedText(`${shortDesc}....`, 30, 175, 440, 15)
 
-        var getIP = require('ipware')().get_ip;
-        var ipInfo = getIP(req);
-        var geoip = require('geoip-lite');
-        var ip = ipInfo.clientIp;
-        var geo = geoip.lookup(ip);
-
-        if (geo) {
-            let CountryCode = geo.country || "TR"
-            await botsdata.updateOne({
-                botID: req.params.botID
-            }, {
-                $inc: {
-                    [`country.${CountryCode}`]: 1
-                }
-            })
-        }
-        await botsdata.updateOne({
-            botID: req.params.botID
-        }, {
-            $inc: {
-                [`analytics.${referresURL}`]: 1
-            }
-        })
-
-        let rateAuthors = new Array();
-        (botdata.rates || []).map(x => {
-            client.users.fetch(x.author).then(b => rateAuthors.push(b))
-        })
-        let page = req.query.page || 1;
-        let data = botdata.rates || [];
-        if ((page > Math.ceil(data.length / 5))) {
-            page = 1;
-        }
-        if (Math.ceil(data.length / 5) < 1) {
-            page = 1;
-        };
-        client.users.fetch(botdata.ownerID).then(aowner => {
-            client.users.fetch(req.params.botID).then(abot => {
-                    res.render("botlist/bot/embed.ejs", {
-                        bot: global.Client,
-                        path: req.path,
-                        config: global.config,
-                        user: req.isAuthenticated() ? req.user : null,
-                        req: req,
-                        roles:global.config.server.roles,
-                        channels: global.config.server.channels,
-                        aowner: aowner,
-                        coowner: coowner,
-                        rateAuthors: rateAuthors,
-                        moment: require("moment"),
-                        abot: abot,
-                        page: page,
-                        data: data,
-                        botdata: botdata
-                    })
-            });
-        });
-
+        .setColor("#5656f0")
+        .printRectangle(0, 220, 500, 450)
+        .setColor("#DCE2F9")
+        .setTextFont('bold 20px sans')
+        .printText(`BHBOTLIST.XYZ`, 175, 245);
+      if(bot.premium==='Premium') {
+        img
+          .setColor("#5656f0")
+          .printRectangle(0, 220, 500, 450)
+          .setColor("#DCE2F9")
+          .setTextFont('bold 20px sans')
+          .printText(`PROMOTED BY BHBOTLIST.XYZ`, 175, 245);
+      }
+      res.writeHead(200, {
+        "Content-Type": "image/png"
+      });
+      res.end(await img.toBuffer(), "binary");
+    } catch (e) {
+      console.log(e)
+      res.redirect("/error?code=500&message=Something went wrong.");
     }
 });
-app.get("/bot/:botID/invite", async (req, res) => {
-        await botsdata.updateOne({
-            botID: req.params.botID
-        }, {
-            $inc: {
-                analytics_invites: 1
-            }
-        })
-    let botdata = await botsdata.findOne({
-        botID: req.params.botID
-    });
-    
-    if (!botdata.invite){
-    return res.redirect('https://discord.com/oauth2/authorize?client_id='+req.params.botID+'&permissions=8&scope=bot');
-    }
-    return res.redirect(botdata.invite);
-})
-app.post("/bot/:botID", global.checkAuth, async (req, res) => {
-    let botdata = await botsdata.findOne({
-        botID: req.params.botID
-    });
-    client.users.fetch(botdata.botID).then(async bot => {
-        client.users.fetch(botdata.ownerID).then(async owner => {
-            if (bot) {
-                await botsdata.findOneAndUpdate({
-                    botID: botdata.botID
-                }, {
-                    $set: {
-                        ownerName: owner.username,
-                        username: bot.username,
-                        discrim: bot.discriminator,
-                        avatar: bot.avatarURL()
-                    }
-                })
-            } else {
-                await botsdata.findOneAndDelete({
-                    botID: botdata.botID
-                })
-            }
-        })
-    })
-    return res.redirect('/bot/' + req.params.botID);
-})
-
-app.post("/bot/:botID/new-comment", async (req, res) => {
-    let botdata = await botsdata.findOne({
-        botID: req.params.botID
-    });
-    if (!botdata) return res.send({
-        error: "You entered an invalid bot id."
-    });
-    if (!req.body.rating) {
-        await botsdata.updateOne({
-            botID: req.params.botID
-        }, {
-            $push: {
-                rates: {
-                    author: req.user.id,
-                    star_rate: 1,
-                    message: req.body.content,
-                    date: Date.now()
-                }
-            }
-        })
-    } else {
-        await botsdata.updateOne({
-            botID: req.params.botID
-        }, {
-            $push: {
-                rates: {
-                    author: req.user.id,
-                    star_rate: req.body.rating,
-                    message: req.body.content,
-                    date: Date.now()
-                }
-            }
-        })
-    }
-
-    return res.redirect('/bot/' + req.params.botID);
-})
-app.post("/bot/:botID/reply/:userID", async (req, res) => {
-    let botdata = await botsdata.findOne({
-        botID: req.params.botID
-    });
-    if (!botdata) return res.send({
-        error: "You entered an invalid bot id."
-    });
-    if (!req.params.userID) return res.send({
-        error: "You must enter a user id."
-    })
-    let message = req.body.replyM;
-    if(!message) return res.send({
-        error: "You must enter a reply message."
-    })
-    await botsdata.update({ 
-            botID: req.params.botID,
-            'rates.author': req.params.userID
-        }, {
-            $set: {
-                'rates.$.reply': message
-            }
-    }, function(err, person) { if(err) return console.log(err); })
-    return res.redirect('/bot/' + req.params.botID);
-})
-
-app.post("/bot/:botID/edit/:userID", async (req, res) => {
-    let botdata = await botsdata.findOne({
-        botID: req.params.botID
-    });
-    if (!botdata) return res.send({
-        error: "You entered an invalid bot id."
-    });
-    if (!req.params.userID) return res.send({
-        error: "You must enter a user id."
-    })
-    let message = req.body.editM;
-    if(!message) return res.send({
-        error: "You must enter a edit message."
-    })
-    await botsdata.update({ 
-            botID: req.params.botID,
-            'rates.author': req.params.userID
-        }, {
-            $set: {
-                'rates.$.star_rate': req.body.ratingEdit,
-                'rates.$.edit': message
-            }
-    }, function(err, person) { if(err) return console.log(err); })
-    return res.redirect('/bot/' + req.params.botID);
-})
-app.post("/bot/:botID/reply/:userID/edit", async (req, res) => {
-    let botdata = await botsdata.findOne({
-        botID: req.params.botID
-    });
-    if (!botdata) return res.send({
-        error: "You entered an invalid bot id."
-    });
-    if (!req.params.userID) return res.send({
-        error: "You must enter a user id."
-    })
-    let message = req.body.editReplyM;
-    if(!message) return res.send({
-        error: "You must enter a new reply message."
-    })
-    await botsdata.update({ 
-            botID: req.params.botID,
-            'rates.author': req.params.userID
-        }, {
-            $set: {
-                'rates.$.reply': message
-            }
-    }, function(err, person) { if(err) return console.log(err); })
-    return res.redirect('/bot/' + req.params.botID);
-})
-app.post("/bot/:botID/reply/:userID/delete", async (req, res) => {
-    let botdata = await botsdata.findOne({
-        botID: req.params.botID
-    });
-    if (!botdata) return res.send({
-        error: "You entered an invalid bot id."
-    });
-    if (!req.params.userID) return res.send({
-        error: "You must enter a user id."
-    })
-    await botsdata.update({ 
-            botID: req.params.botID,
-            'rates.author': req.params.userID
-        }, {
-            $unset: {
-                'rates.$.reply': null
-            }
-    }, function(err, person) { if(err) return console.log(err); })
-    return res.redirect('/bot/' + req.params.botID);
-})
-app.post("/bot/:botID/review/:userID/delete", async (req, res) => {
-    let botdata = await botsdata.findOne({
-        botID: req.params.botID
-    });
-    if (!botdata) return res.send({
-        error: "You entered an invalid bot id."
-    });
-    if (!req.params.userID) return res.send({
-        error: "You must enter a user id."
-    })
-    await botsdata.update({ 
-            botID: req.params.botID,
-            'rates.author': req.params.userID
-        }, {
-            $unset: {
-                'rates.$.author': null,
-                'rates.$.star_rate': null,
-                'rates.$.message': null,
-                'rates.$.date': null,
-                'rates.$.edit': null,
-                'rates.$.reply': null
-            }
-    }, function(err, person) { if(err) return console.log(err); })
-    return res.redirect('/bot/' + req.params.botID);
-})
-app.get("/bot/:botID/delete", async (req, res) => {
-    let botdata = await botsdata.findOne({
-        botID: req.params.botID
-    })
-    if (req.user.id === botdata.ownerID || botdata.coowners.includes(req.user.id)) {
-        let guild = client.guilds.cache.get(config.server.id).members.cache.get(botdata.botID);
-        await botsdata.deleteOne({
-            botID: req.params.botID,
-            ownerID: botdata.ownerID
-        })
-        return res.redirect(`/user/${req.user.id}?success=true&message=Bot succesfully deleted.`)
-
-    } else {
-        return res.redirect("/error?code=404&message=You entered an invalid bot id.");
-    }
-})
 module.exports = app;
