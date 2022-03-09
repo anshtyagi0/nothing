@@ -24,7 +24,7 @@
 <br><br>
 
 > # Terms of use from bhbotlist.xyz
-<a>- Don't touch footer part this at footer;</a><br>
+<a>- Don't touch this part at footer;</a><br>
 ><img width="512" src="https://cdn.discordapp.com/attachments/946643231746170991/951121649850286100/termstouse.png">
 
 > # Extra Terms of use from vcodes.xyz
