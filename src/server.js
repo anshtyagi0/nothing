@@ -280,7 +280,7 @@ app.post("/admin/news", checkAdmin, checkAuth, async (req, res) => {
 
   const webhook = require("webhook-discord");
 
-  const Hook = new webhook.Webhook("https://discord.com/api/webhooks/947387344342900746/RQVSXGp2BqyOas_XKZTNmJpq73BkPCaQYxUsG9ITzrIRX__gTeKeWxhz4LnuzWyrMY4d");
+  const Hook = new webhook.Webhook("");
   const msg = new webhook.MessageBuilder()
     .setName('News')
     .setAvatar(req.body.icon)
