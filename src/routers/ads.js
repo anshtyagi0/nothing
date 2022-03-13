@@ -1,5 +1,5 @@
 const app = require('express').Router();
-const Database = require("void.db");
+const Database = require("bhbl.db");
 const path = require("path")
 
 console.log("[bhbotlist.xyz]: Ads router loaded.");
