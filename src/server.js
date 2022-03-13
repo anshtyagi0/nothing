@@ -254,13 +254,13 @@ app.get("/admin/premium/delete/:botID", checkAdmin, checkAuth, async (req, res) 
 
 app.get("/admin/news", checkAdmin, checkAuth, async (req, res) => {
   if (!config.bot.owners.includes(req.user.id)) return res.redirect('../admin');
-  const Database = require("void.db");
+  const Database = require("bhbl.db");
   const db = new Database(path.join(__dirname, './database/json/news.json'));
   renderTemplate(res, req, "/admin/administrator/news.ejs", { req, roles, config, db })
 });
 app.post("/admin/news", checkAdmin, checkAuth, async (req, res) => {
   if (!config.bot.owners.includes(req.user.id)) return res.redirect('../admin');
-  const Database = require("void.db");
+  const Database = require("bhbl.db");
   const db = new Database(path.join(__dirname, './database/json/news.json'));
   const datum = new Date().toLocaleString();
   db.push(`news`, {
@@ -304,7 +304,7 @@ function createID(length) {
   return result;
 }
 app.get("/news", (req, res) => {
-  const Database = require("void.db");
+  const Database = require("bhbl.db");
   const db = new Database(path.join(__dirname, './database/json/news.json'));
   renderTemplate(res, req, "news.ejs", { roles, config, db: db, req: req });
 });
