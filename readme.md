@@ -10,7 +10,7 @@
 **NPM:** [npmjs.com/package/vcodes.js](https://www.npmjs.com/package/vcodes.js)<br>
 <br>
 
-<img width="150" height="150" align="left" style="float: left; margin: 0 10px 0 0;" alt="bhbotlist" src="https://bhbotlist.xyz/img/logo.png"> 
+<img width="300" height="300" align="left" style="float: left; margin: 0 10px 0 0;" alt="bhbotlist" src="https://bhbotlist.xyz/img/logo.png"> 
 
 > # Modified by
 <a href="https://bhbotlist.xyz/user/836958855866089512">👤 Abhijit</a><br>
