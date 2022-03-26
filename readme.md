@@ -25,7 +25,7 @@
 
 > # Terms of use from bhbotlist.xyz
 <a>- Don't touch this part at footer;</a><br>
-><img width="512" src="https://cdn.discordapp.com/attachments/946643231746170991/951121649850286100/termstouse.png">
+><img width="512" src="https://cdn.discordapp.com/attachments/946643231746170991/957152042214899761/DONT_TOUCH_THIS.png">
 
 > # Extra Terms of use from vcodes.xyz
 <a>- You have the permission to shoot and share videos, but you have to mention us, our server, in the video.</a><br>
